@@ -16,7 +16,9 @@
 
 package com.edevapps;
 
-public interface Builder<T> {
+import java.util.Map;
 
-    T build();
+public interface Configurable {
+  
+  Configurable configure(Map<String, Object> args) throws IllegalArgumentException;
 }

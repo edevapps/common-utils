@@ -16,7 +16,8 @@
 
 package com.edevapps;
 
-public interface Builder<T> {
-
-    T build();
+public interface DirectionalMapper<T1, T2> {
+  
+  T1 directMap(T2 value);
+  T2 inverseMap(T1 value);
 }

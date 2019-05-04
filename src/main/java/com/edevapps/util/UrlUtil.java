@@ -18,20 +18,21 @@ package com.edevapps.util;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class UrlUtil {
-    
+
     public static Map<String, String> getQueryProps(String url) {
-        String source = AssertUtil.assertNotNull(url, "url");
+        String source = Objects.requireNonNull(url, "url");
         int idx = source.indexOf("?");
         if (idx < 0) {
             throw new IllegalStateException("Url value is not contain queries.");
         }
         int len = source.length();
         String temp = source.substring(idx + 1, len);
-        String[] gueries = temp.split("&");
+        String[] queries = temp.split("&");
         Map<String, String> values = new HashMap<>();
-        for (String query : gueries) {
+        for (String query : queries) {
             String[] value = query.split("=");
             if (value.length >= 2) {
                 values.put(value[0], value[1]);

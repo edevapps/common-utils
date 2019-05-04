@@ -1,5 +1,5 @@
 /*
- *     Copyright (c) 2018, The Eduard Burenkov (http://edevapps.com)
+ *     Copyright (c) 2019, The Eduard Burenkov (http://edevapps.com)
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -14,9 +14,24 @@
  *     limitations under the License.
  */
 
-package com.edevapps;
+package com.edevapps.util;
 
-public interface Builder<T> {
+import java.nio.ByteBuffer;
+import java.util.UUID;
 
-    T build();
+public class UuidUtil {
+
+  public static UUID asUuid(byte[] bytes) {
+    ByteBuffer bb = ByteBuffer.wrap(bytes);
+    long firstLong = bb.getLong();
+    long secondLong = bb.getLong();
+    return new UUID(firstLong, secondLong);
+  }
+
+  public static byte[] asBytes(UUID uuid) {
+    ByteBuffer bb = ByteBuffer.wrap(new byte[16]);
+    bb.putLong(uuid.getMostSignificantBits());
+    bb.putLong(uuid.getLeastSignificantBits());
+    return bb.array();
+  }
 }

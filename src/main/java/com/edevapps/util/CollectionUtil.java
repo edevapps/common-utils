@@ -31,11 +31,11 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 public class CollectionUtil {
-  
+
   public static boolean containsAnyValues(Map<String, String> source, Set<String> values) {
     return source.values().stream().anyMatch(values::contains);
   }
-  
+
   public static <T, R> Collector<T, ?, Stream<T>> distinctByKey(Function<T, R> keyExtractor) {
     return Collectors.collectingAndThen(
         toMap(
@@ -46,11 +46,11 @@ public class CollectionUtil {
         (Map<R, T> map) -> map.values().stream()
     );
   }
-  
+
   public static <T> T lastItem(Collection<T> items) {
     return items.stream().reduce((first, second) -> second).orElse(null);
   }
-  
+
   public static <T> Stream<T> throwIfEmpty(Stream<T> stream) {
     Iterator<T> iterator = stream.iterator();
     if (iterator.hasNext()) {
@@ -58,5 +58,15 @@ public class CollectionUtil {
     } else {
       throw new NoSuchElementException("Empty stream.");
     }
+  }
+
+  @SuppressWarnings("unchecked")
+  public static <T> T valueOf(String key, Map<String, Object> args)
+      throws IllegalArgumentException, ClassCastException {
+    if (!args.containsKey(key)) {
+      throw new IllegalArgumentException(
+          "Argument by name '" + key + "' is not contains in args.");
+    }
+    return (T) args.get(key);
   }
 }

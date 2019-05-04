@@ -1,5 +1,5 @@
 /*
- *     Copyright (c) 2018, The Eduard Burenkov (http://edevapps.com)
+ *     Copyright (c) 2019, The Eduard Burenkov (http://edevapps.com)
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -14,9 +14,23 @@
  *     limitations under the License.
  */
 
-package com.edevapps;
+package com.edevapps.util.objects;
 
-public interface Builder<T> {
+public class ReflectionTestBean {
 
-    T build();
+  public static final String STRING_VALUE = "string_value";
+  public static final String PRIVATE_STRING_FIELD_NAME = "privateStringField";
+
+  private String privateStringField = STRING_VALUE;
+
+  public ReflectionTestBean() {
+  }
+
+  public ReflectionTestBean(String privateStringField) {
+    this.privateStringField = privateStringField;
+  }
+
+  public String getStringField() {
+    return privateStringField;
+  }
 }

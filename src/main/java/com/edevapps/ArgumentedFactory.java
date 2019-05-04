@@ -16,7 +16,7 @@
 
 package com.edevapps;
 
-public interface Builder<T> {
-
-    T build();
+public interface ArgumentedFactory<T, A> {
+  
+  T create(A args);
 }

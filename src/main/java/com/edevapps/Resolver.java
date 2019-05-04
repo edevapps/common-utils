@@ -16,7 +16,9 @@
 
 package com.edevapps;
 
-public interface Builder<T> {
+public interface Resolver<T1, T2> {
 
-    T build();
+  boolean contains(T2 key);
+
+  T1 resolve(T2 key) throws IndexOutOfBoundsException;
 }

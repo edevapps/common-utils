@@ -25,23 +25,23 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TimeUtil {
-	
+
 	public static Duration duration(Timestamp start, Timestamp end) {
 		return Duration.ofMillis(end.getTime() - start.getTime());
 	}
-	
+
 	public static Duration duration(Date start, Date end) {
 		return Duration.ofMillis(end.getTime() - start.getTime());
 	}
-	
+
 	public static Instant toInstant(Timestamp time) {
 		return Instant.ofEpochMilli(time.getTime());
 	}
-	
+
 	public static Date toDate(Timestamp time) {
 		return new Date(time.getTime());
 	}
-	
+
 	public static Date beginOfDay(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -51,7 +51,7 @@ public class TimeUtil {
 		calendar.set(Calendar.MILLISECOND, 0);
 		return calendar.getTime();
 	}
-	
+
 	public static Date endOfDay(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -61,28 +61,27 @@ public class TimeUtil {
 		calendar.set(Calendar.MILLISECOND, 0);
 		return addDays(calendar.getTime(), 1);
 	}
-	
+
 	public static Date addDays(Date date, int days) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DATE, days);
 		return calendar.getTime();
 	}
-	
-	
+
 	public static Date backDays(Date date, int days) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DATE, -days);
 		return calendar.getTime();
 	}
-	
+
 	public static Date backMilliseconds(Date date, long milliseconds) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(date.getTime() - (milliseconds < 0 ? - milliseconds : milliseconds));
 		return calendar.getTime();
 	}
-	
+
 	public static Date toDate(String value, String format) {
 		try {
 			return new SimpleDateFormat(format).parse(value);
@@ -90,8 +89,8 @@ public class TimeUtil {
 			throw new IllegalArgumentException(e);
 		}
 	}
-	
-	public static Date epochToDate(long value) {
-		return new Date(value * 1000);
+
+	public static Date epochToDate(long sec) {
+		return new Date(sec * 1000);
 	}
 }

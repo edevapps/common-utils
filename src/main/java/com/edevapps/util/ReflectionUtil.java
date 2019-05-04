@@ -16,10 +16,12 @@
 
 package com.edevapps.util;
 
+import static com.edevapps.util.ObjectsUtil.requireNonNull;
+
 import java.lang.reflect.Field;
 
 public class ReflectionUtil {
-	
+
 	@SuppressWarnings("unchecked")
 	public static <T> T getFieldValue(String fieldName, Object object)
 			throws NoSuchFieldException, IllegalAccessException, ClassCastException {
@@ -27,15 +29,15 @@ public class ReflectionUtil {
 		if(field == null) {
 			throw new NoSuchFieldException();
 		}
-		
+
 		boolean accessibility = field.isAccessible();
 		field.setAccessible(true);
 		T value = ((T) field.get(object));
 		field.setAccessible(accessibility);
 		return value;
 	}
-	
-	private static Field findField(Class<?> target, String fieldName) {
+
+	public static Field findField(Class<?> target, String fieldName) {
 		try {
 			Field field = null;
 			Class<?> superClass = target.getSuperclass();
@@ -47,8 +49,16 @@ public class ReflectionUtil {
 			}
 			return field;
 		} catch (NoSuchFieldException ignore) {
-			//Not finded
+			//Not find
 		}
 		return null;
+	}
+
+	public static <T> T newInstance(Class<? extends T> clazz) throws IllegalStateException {
+		try {
+			return requireNonNull(clazz, "clazz").newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 }
