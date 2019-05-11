@@ -1,5 +1,5 @@
 /*
- *     Copyright (c) 2018, The Eduard Burenkov (http://edevapps.com)
+ *     Copyright (c) 2018, The Eduard Burenkov. All rights reserved. http://edevapps.com
  *
  *     Licensed under the Apache License, Version 2.0 (the "License");
  *     you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class TimeUtil {
 		return new Date(time.getTime());
 	}
 
-	public static Date beginOfDay(Date date) {
+	public static Date beginDayOf(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.set(Calendar.HOUR, 0);
@@ -52,31 +52,32 @@ public class TimeUtil {
 		return calendar.getTime();
 	}
 
-	public static Date endOfDay(Date date) {
+	public static Date endDayOf(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.set(Calendar.HOUR, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MILLISECOND, 0);
-		return addDays(calendar.getTime(), 1);
+		return addDaysOf(calendar.getTime(), 1);
 	}
 
-	public static Date addDays(Date date, int days) {
+	public static Date addDaysOf(Date date, int days) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DATE, days);
 		return calendar.getTime();
 	}
 
-	public static Date backDays(Date date, int days) {
+
+	public static Date backDaysOf(Date date, int days) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.add(Calendar.DATE, -days);
 		return calendar.getTime();
 	}
 
-	public static Date backMilliseconds(Date date, long milliseconds) {
+	public static Date backMillisecondsOf(Date date, long milliseconds) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(date.getTime() - (milliseconds < 0 ? - milliseconds : milliseconds));
 		return calendar.getTime();
@@ -90,7 +91,7 @@ public class TimeUtil {
 		}
 	}
 
-	public static Date epochToDate(long sec) {
-		return new Date(sec * 1000);
+	public static Date epochToDate(long value) {
+		return new Date(value * 1000);
 	}
 }
