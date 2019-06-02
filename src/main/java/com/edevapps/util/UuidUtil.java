@@ -16,7 +16,9 @@
 
 package com.edevapps.util;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.UUID;
 
 public class UuidUtil {
@@ -33,5 +35,29 @@ public class UuidUtil {
     bb.putLong(uuid.getMostSignificantBits());
     bb.putLong(uuid.getLeastSignificantBits());
     return bb.array();
+  }
+
+  public static String asString(UUID uuid, Charset charset) {
+    return new String(asBytes(uuid), charset);
+  }
+
+  public static String asString(UUID uuid, String charsetName) {
+    try {
+      return new String(asBytes(uuid), charsetName);
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalArgumentException("Unsupported encoding '" + charsetName + "'.", e);
+    }
+  }
+
+  public static UUID asUuid(String string, Charset charset) {
+    return asUuid(string.getBytes(charset));
+  }
+
+  public static UUID asUuid(String string, String charsetName) {
+    try {
+      return asUuid(string.getBytes(charsetName));
+    } catch (UnsupportedEncodingException e) {
+      throw new IllegalArgumentException("Unsupported encoding '" + charsetName + "'.", e);
+    }
   }
 }
