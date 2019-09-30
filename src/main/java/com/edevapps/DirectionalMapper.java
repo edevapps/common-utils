@@ -16,6 +16,7 @@
 
 package com.edevapps;
 
+@Deprecated
 public interface DirectionalMapper<T1, T2> {
   
   T1 directMap(T2 value);

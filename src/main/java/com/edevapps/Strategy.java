@@ -16,6 +16,7 @@
 
 package com.edevapps;
 
+@Deprecated
 public interface Strategy<T> {
     
     T execute();
