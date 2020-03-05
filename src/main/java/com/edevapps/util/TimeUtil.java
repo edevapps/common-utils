@@ -83,6 +83,10 @@ public class TimeUtil {
 		return calendar.getTime();
 	}
 
+	public static Date backMinutesOf(Date date, long minutes) {
+		return backMillisecondsOf(date, minutes * 60 * 1000);
+	}
+
 	public static Date toDate(String value, String format) {
 		try {
 			return new SimpleDateFormat(format).parse(value);
