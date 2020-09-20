@@ -5,13 +5,8 @@
 
   <artifactId>common-utils</artifactId>
   <groupId>com.edevapps</groupId>
-  <version>1.0.7</version>
+  <version>1.0.9</version>
   <modelVersion>4.0.0</modelVersion>
-
-  <properties>
-    <jdk.version>1.8</jdk.version>
-    <junit.version>4.12</junit.version>
-  </properties>
 
   <dependencies>
     <dependency>
@@ -30,10 +25,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>${jdk.version}</source>
           <target>${jdk.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
 
@@ -41,10 +37,19 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven-jar-plugin.version}</version>
         <configuration>
         </configuration>
       </plugin>
 
     </plugins>
   </build>
+
+  <properties>
+    <jdk.version>1.8</jdk.version>
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>4.12</junit.version>
+  </properties>
 </project>
