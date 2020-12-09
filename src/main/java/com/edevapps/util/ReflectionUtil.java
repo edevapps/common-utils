@@ -19,6 +19,8 @@ package com.edevapps.util;
 import static com.edevapps.util.ObjectsUtil.requireNonNull;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class ReflectionUtil {
 
@@ -50,6 +52,60 @@ public class ReflectionUtil {
 			return field;
 		} catch (NoSuchFieldException ignore) {
 			//Not find
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> T getBeanProperty(String propertyName, Object object)
+			throws NoSuchMethodException, IllegalAccessException, ClassCastException, InvocationTargetException {
+		Method method = findBeanPropertyMethod(object.getClass(), propertyName);
+		if(method == null) {
+			throw new NoSuchMethodException();
+		}
+
+		return ((T) method.invoke(object));
+	}
+
+	public static Method findBeanPropertyMethod(Class<?> target, String propertyName) {
+		try {
+			Method method = null;
+			Class<?> superClass = target.getSuperclass();
+			String propertyMethodName = buildBeanPropertyMethodName(propertyName);
+			if(superClass != null) {
+				method = findBeanPropertyMethod(superClass, propertyMethodName);
+			}
+			if(method == null) {
+				method = target.getMethod(propertyMethodName);
+			}
+			return method;
+		} catch (NoSuchMethodException ignore) {
+			//Not find
+		} catch (SecurityException se) {
+			throw new IllegalStateException(se);
+		}
+		return null;
+	}
+
+	public static String buildBeanPropertyMethodName(String propertyName) {
+		return "get" +  propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
+	}
+
+	public static Method findMethod(Class<?> target, String methodName) {
+		try {
+			Method method = null;
+			Class<?> superClass = target.getSuperclass();
+			if(superClass != null) {
+				method = findMethod(superClass, methodName);
+			}
+			if(method == null) {
+				method = target.getDeclaredMethod(methodName);
+			}
+			return method;
+		} catch (NoSuchMethodException ignore) {
+			//Not find
+		} catch (SecurityException se) {
+			throw new IllegalStateException(se);
 		}
 		return null;
 	}
